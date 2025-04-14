@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${movie.title}">Movie Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="detail-page">
+<!-- Header with reduced width and home-page style -->
+<header class="reduced-header">
+    <div class="container">
+        <h1 th:text="${movie.title}">Movie Title</h1>
+        <nav>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/favorites}">Favorites</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container detail-container">
+    <div class="poster-section">
+        <img th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}" alt="Movie Poster" />
+    </div>
+    <div class="info-section">
+        <h2 th:text="${movie.title}">Movie Title</h2>
+        <p><strong>Release Date:</strong> <span th:text="${movie.releaseDate}"></span></p>
+        <p><strong>Rating:</strong> <span th:text="${movie.voteAverage}"></span></p>
+        <p th:text="${movie.overview}"></p>
+        <form action="/favorites/add" method="post">
+            <input type="hidden" name="id" th:value="${movie.id}" />
+            <input type="hidden" name="title" th:value="${movie.title}" />
+            <input type="hidden" name="posterPath" th:value="${movie.posterPath}" />
+            <button type="submit">Add to Favorites</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Movie Catalogue System. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

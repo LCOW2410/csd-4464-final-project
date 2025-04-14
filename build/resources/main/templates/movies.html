@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Catalogue</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="movies-page">
+<header>
+    <div class="container">
+        <h1>Movie Catalogue</h1>
+        <nav>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/favorites}">Favorites</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Search Form -->
+    <form action="/search" method="get" class="search-form">
+        <input type="text" name="query" placeholder="Search for a movie..." required />
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Grid View for Movies -->
+    <div class="movie-list">
+        <!-- Movie cards are directly inside the grid container -->
+        <div th:each="movie : ${movies}" class="movie-card">
+            <img th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}" alt="Poster" />
+            <div class="movie-info">
+                <!-- Movie title is clickable for movie details -->
+                <h3>
+                    <a th:href="@{'/movie/' + ${movie.id}}" th:text="${movie.title}"></a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Movie Catalogue System. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

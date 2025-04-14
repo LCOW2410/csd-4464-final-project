@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorite Movies</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="favorites-page">
+<!-- Header and Navigation -->
+<header>
+    <div class="container">
+        <h1>Your Favorite Movies</h1>
+        <nav>
+            <a th:href="@{/}">Home</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Grid Layout for Favorite Movies -->
+    <div th:if="${favorites != null and !#lists.isEmpty(favorites)}" class="favorites-list">
+        <div th:each="fav : ${favorites}" class="favorite-card">
+            <img th:src="'https://image.tmdb.org/t/p/w500' + ${fav.posterPath}" alt="Movie Poster" />
+            <div class="info">
+                <h4>
+                    <a th:href="@{'/movie/' + ${fav.id}}" th:text="${fav.title}"></a>
+                </h4>
+                <form action="/favorites/remove" method="post">
+                    <input type="hidden" name="id" th:value="${fav.id}" />
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message if No Favorites Exist -->
+    <div th:if="${favorites == null or #lists.isEmpty(favorites)}">
+        <p>No favorite movies to show.</p>
+    </div>
+
+    <!-- Back to Catalogue Link -->
+    <div class="back-container">
+        <a class="back-link" th:href="@{/}">Back to Catalogue</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Movie Catalogue System. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

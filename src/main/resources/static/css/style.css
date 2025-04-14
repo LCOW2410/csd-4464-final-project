@@ -1,0 +1,475 @@
+/* ===============================
+   Import Google Fonts & Define Variables
+   =============================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+:root {
+    --primary-font: 'Montserrat', sans-serif;
+    --transition-speed: 0.3s;
+
+    /* Global Colors */
+    --global-bg: #121212;
+    --global-text: #f0f0f0;
+
+    /* Movies Page (Catalogue/Search) */
+    --movies-bg-start: #0d0d0d;
+    --movies-bg-end: #262626;
+    --movies-card-bg: #1c1c1c;
+    --movies-border: #333;
+    --movies-accent: #e50914;
+
+    /* Detail Page */
+    --detail-bg: #f5f5f5;
+    --detail-text: #37474f;
+    --detail-accent: #ff3d00;
+
+    /* Favorites Page */
+    --favorites-bg: #eceff1;
+    --favorites-card-bg: #ffffff;
+    --favorites-border: #ccc;
+    --favorites-accent: #455a64;
+}
+
+/* ===============================
+   Global Reset & Base Styles
+   =============================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--primary-font);
+    background: var(--global-bg);
+    color: var(--global-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ===============================
+   Container & Common Layout
+   =============================== */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+/* ===============================
+   Header & Navigation (Common)
+   =============================== */
+header {
+    padding: 0.1rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    transition: all var(--transition-speed) ease;
+    color: var(--global-text);
+}
+
+nav a:hover {
+    border-color: var(--global-text);
+    background: var(--movies-accent);
+    color: var(--global-bg);
+}
+
+/* ===============================
+   Footer (Common)
+   =============================== */
+footer {
+    background: var(--movies-bg-end);
+    color: var(--global-text);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #222;
+    font-size: 0.9rem;
+}
+
+/* ===============================
+   Common Search Form
+   =============================== */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.search-form input[type="text"] {
+    max-width: 600px;
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--movies-border);
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    background: #222;
+    color: var(--global-text);
+    transition: border var(--transition-speed) ease;
+}
+
+.search-form input[type="text"]:focus {
+    border-color: var(--movies-accent);
+}
+
+.search-form button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    background: var(--movies-accent);
+    color: var(--global-bg);
+    transition: background var(--transition-speed) ease;
+}
+
+.search-form button:hover {
+    background: #ff3b2e;
+}
+
+/* ===============================
+   Movies Page (Catalogue & Search) Unique Styles
+   =============================== */
+/* Movies Page Unique Styles */
+.movies-page {
+    background: radial-gradient(circle at top left, #0d0d0d, #262626);
+    color: #f0f0f0;
+}
+
+/* Search Form Styling */
+.movies-page .search-form {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.movies-page .search-form input[type="text"] {
+    max-width: 600px;
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #333;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    background: #222;
+    color: #f0f0f0;
+    transition: border 0.3s ease;
+}
+
+.movies-page .search-form input[type="text"]:focus {
+    border-color: #e50914;
+}
+
+.movies-page .search-form button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    background: #e50914;
+    color: #121212;
+    transition: background 0.3s ease;
+}
+
+.movies-page .search-form button:hover {
+    background: #ff3b2e;
+}
+
+/* Grid Layout for Movie List */
+.movies-page .movie-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on wide screens */
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .movies-page .movie-list {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .movies-page .movie-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+    }
+}
+
+/* Movie Card Styling */
+.movies-page .movie-card {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+}
+
+.movies-page .movie-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.8);
+}
+
+/* Thumbnail Poster Size */
+.movies-page .movie-card img {
+    width: 100%;
+    height: 180px;  /* Thumbnail height */
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.movies-page .movie-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Movie Info Styling */
+.movies-page .movie-card .movie-info {
+    padding: 1rem;
+}
+
+.movies-page .movie-card .movie-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #e50914;
+}
+
+.movies-page .movie-card .movie-info h3 a {
+    text-decoration: none;
+    color: #e50914;
+    transition: color 0.3s ease;
+}
+
+.movies-page .movie-card .movie-info h3 a:hover {
+    color: #ff3b2e;
+}
+/* ===============================
+   Detail Page Unique Styles
+   =============================== */
+/* Ensure the detail page uses the same background theme as the movies page */
+.detail-page {
+    background: radial-gradient(circle at top left, var(--movies-bg-start), var(--movies-bg-end));
+    color: var(--global-text);
+}
+
+/* Updated header for the detail page */
+.detail-page header.reduced-header {
+    background: linear-gradient(135deg, var(--movies-bg-start), #262626);
+    width: 80%;          /* Decreased width */
+    margin: 1rem auto;   /* Center the header */
+    padding: 1.5rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+
+.detail-page .detail-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    background: #e1cfcf;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin: 2rem 0;
+    align-content: center;
+    width: 100%;
+}
+
+.detail-page .detail-container .poster-section {
+    flex: 0 0 300px;
+}
+
+.detail-page .detail-container .poster-section img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.detail-page .detail-container .info-section {
+    flex: 1;
+    padding: 1rem;
+}
+
+.detail-page .detail-container .info-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--detail-accent);
+    color: var(--detail-accent);
+}
+
+.detail-page .detail-container .info-section p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--detail-text);
+}
+
+/* ===============================
+   Favorites Page Unique Styles
+   =============================== */
+/* Favorites Page Unique Styles */
+.favorites-page {
+    background: radial-gradient(circle at top left, #0d0d0d, #262626);
+    color: #f0f0f0;
+    padding-bottom: 2rem;
+}
+
+/* Grid Layout for Favorite Movies (4 columns on wide screens) */
+.favorites-page .favorites-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Force 4 columns */
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .favorites-page .favorites-list {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .favorites-page .favorites-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+    }
+}
+
+/* Favorite Card Styling */
+.favorites-page .favorite-card {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.favorites-page .favorite-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.favorites-page .favorite-card img {
+    width: 100%;
+    height: 300px; /* Adjust poster thumbnail size as desired */
+    object-fit: cover;
+}
+
+.favorites-page .favorite-card .info {
+    padding: 0.75rem 1rem;
+}
+
+.favorites-page .favorite-card .info h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #455a64;  /* Accent color */
+}
+
+.favorites-page .favorite-card .info a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.favorites-page .favorite-card .info a:hover {
+    color: #e50914;
+}
+
+.favorites-page .favorite-card .info button {
+    width: 100%;
+    margin-top: 0.5rem;
+    background: #ff3b2e;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.favorites-page .favorite-card .info button:hover {
+    background: #e53935;
+}
+
+/* Back Link Container */
+.back-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #e50914;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #ff3b2e;
+}
+
+/* ===============================
+   Common Button Styling
+   =============================== */
+button, input[type="submit"] {
+    background: var(--movies-accent);
+    color: var(--global-text);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background: #ff3b2e;
+    transform: translateY(-2px);
+}
+
+/* ===============================
+   Animations & Responsive Design
+   =============================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container, .movie-card, .movie-list, .detail-container, .favorites-list {
+    animation: fadeIn 0.8s ease-out;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .detail-page .detail-container {
+        flex-direction: column;
+    }
+    .detail-page .detail-container .poster-section {
+        flex: 0 0 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
